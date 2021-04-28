@@ -1,14 +1,17 @@
 import { css, SerializedStyles } from '@emotion/react';
 import { normalize } from 'polished';
 import { ThemeT } from 'presentation/context/Theme';
+import fontsCss from './fontsCss';
 
 const globalCss = (theme: ThemeT): SerializedStyles => css`
     ${normalize()}
+    ${fontsCss(theme)}
+    
     html,
     body {
         margin: 0;
         padding: 0;
-        background-color: ${theme.colors.base};
+        background-color: ${theme.colors.bg};
         color: ${theme.colors.text};
         font-size: 16px;
         line-height: 1.2;

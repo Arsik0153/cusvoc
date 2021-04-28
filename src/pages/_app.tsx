@@ -11,6 +11,7 @@ import AppContainer from 'container/AppContainer';
 import ErrorPage from 'pages/_error';
 import Logger, { AdditionalInfoT } from 'util/Logger';
 import { ScrollRestorationT } from 'util/ScrollRestoration';
+import Layout from 'presentation/component/layout/Main';
 
 enableStaticRendering(isServer());
 
@@ -78,14 +79,16 @@ class App extends NextApp {
                         content="width=device-width, initial-scale=1, maximum-scale=5"
                     />
                     <meta name="description" key="description" content="Description" />
-                    <title>Title</title>
+                    <title>Cusvoc</title>
                 </Head>
                 <ThemeProvider>
-                    {error ? (
-                        <ErrorPage statusCode={error.statusCode} />
-                    ) : (
-                        <Component {...pageProps} />
-                    )}
+                    <Layout>
+                        {error ? (
+                            <ErrorPage statusCode={error.statusCode} />
+                        ) : (
+                            <Component {...pageProps} />
+                        )}
+                    </Layout>
                 </ThemeProvider>
             </>
         );
