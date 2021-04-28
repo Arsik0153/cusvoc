@@ -1,5 +1,5 @@
 # cusvoc
-online dating web app
+online dating web app for Code Lab course
 
 **Deploying**
 
