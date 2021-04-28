@@ -1,3 +1,6 @@
+# cusvoc
+online dating web app
+
 **Deploying**
 
 1. Make sure you have Node@14 & Yarn@1.16 installed;
