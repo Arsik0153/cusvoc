@@ -7,6 +7,7 @@ const light: ThemeT = {
         text: '#000000',
         red: '#E94057',
         bg: '#F3F3F3',
+        gray: '#E8E6EA',
     },
     font: {
         family: {

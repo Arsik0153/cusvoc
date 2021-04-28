@@ -14,7 +14,7 @@ const defaultButtonCss = (theme: ThemeT): SerializedStyles => css`
 const invertedButtonCss = (theme: ThemeT): SerializedStyles => css`
     background-color: ${theme.colors.base};
     color: ${theme.colors.red};
-    border: 1px solid #F3F3F3;
+    border: 2px solid #f3f3f3;
 `;
 
 const Button = styled.button<ButtonPropsT>`
@@ -26,7 +26,7 @@ const Button = styled.button<ButtonPropsT>`
     font-size: 16px;
     border-radius: 15px;
     width: 100%;
-    
+
     ${({ theme, inverted }) => !inverted && defaultButtonCss(theme)}
     ${({ theme, inverted }) => inverted && invertedButtonCss(theme)}
 `;

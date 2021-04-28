@@ -9,6 +9,7 @@ export type ThemeT = {
         text: string;
         red: string;
         bg: string;
+        gray: string;
     };
     font: {
         weight: {
