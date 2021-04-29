@@ -3,7 +3,7 @@ import BaseButton from 'presentation/component/common/Control/Button';
 
 export const Wrapper = styled.div`
     padding: 40px 48px;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
 `;

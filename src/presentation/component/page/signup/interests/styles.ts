@@ -27,5 +27,6 @@ export const Controls = styled.div`
 `;
 
 export const Button = styled(BaseButton)`
-    margin-top: auto;
+    margin-top: 30px;
+    height: auto;
 `;

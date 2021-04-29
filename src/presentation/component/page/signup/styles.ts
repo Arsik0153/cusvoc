@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
     padding: 40px 48px;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 100vh;
 `;
 
 export const Heading = styled.h1`

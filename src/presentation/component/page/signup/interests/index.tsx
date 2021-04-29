@@ -3,7 +3,12 @@ import FilledContainer from 'presentation/component/common/Block/FilledContainer
 import Checkbox from 'presentation/component/common/Control/Checkbox';
 import { Wrapper, Heading, Text, Controls, Button } from './styles';
 
-const INTERESTS = [
+type InterestT = {
+    id: number;
+    text: string;
+};
+
+const INTERESTS: InterestT[] = [
     {
         id: 1,
         text: 'Photography',
@@ -63,7 +68,15 @@ const INTERESTS = [
 ];
 
 const Interests: FC = () => {
-    const [activeInterests] = useState([2, 7, 10]);
+    const [activeInterests, setActiveInterests] = useState<number[]>([]);
+
+    const handleCheckboxClick = (interestId: number): void => {
+        if (activeInterests.includes(interestId)) {
+            setActiveInterests(activeInterests.filter((interest) => interest !== interestId));
+        } else {
+            setActiveInterests([...activeInterests, interestId]);
+        }
+    };
 
     return (
         <FilledContainer>
@@ -75,7 +88,12 @@ const Interests: FC = () => {
                 </Text>
                 <Controls>
                     {INTERESTS.map(({ text, id }) => (
-                        <Checkbox text={text} checked={activeInterests.includes(id)} key={id} />
+                        <Checkbox
+                            text={text}
+                            checked={activeInterests.includes(id)}
+                            key={id}
+                            onClick={() => handleCheckboxClick(id)}
+                        />
                     ))}
                 </Controls>
                 <Button>Continue</Button>

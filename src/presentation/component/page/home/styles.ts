@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
     font-weight: ${({ theme }) => theme.font.weight.semibold};
     height: 100%;
     display: grid;
-    grid-template-rows: 7fr 3fr 3fr;
+    grid-template-rows: 4fr 3fr 3fr;
     padding: 40px 48px;
 `;
 

@@ -9,6 +9,7 @@ type ButtonPropsT = {
 const defaultButtonCss = (theme: ThemeT): SerializedStyles => css`
     background-color: ${theme.colors.red};
     color: ${theme.colors.base};
+    border: 2px solid transparent;
 `;
 
 const invertedButtonCss = (theme: ThemeT): SerializedStyles => css`
@@ -19,9 +20,7 @@ const invertedButtonCss = (theme: ThemeT): SerializedStyles => css`
 
 const Button = styled.button<ButtonPropsT>`
     cursor: pointer;
-    line-height: 0;
-    padding: 0 32px;
-    height: 56px;
+    padding: 16px 32px;
     font-weight: 700;
     font-size: 16px;
     border-radius: 15px;
