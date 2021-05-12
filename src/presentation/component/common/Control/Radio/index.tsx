@@ -1,16 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, HTMLAttributes } from 'react';
 import { Wrapper, Control } from './styles';
 
-type PropsT = {
+type PropsT = HTMLAttributes<HTMLElement> & {
     text: string;
     active: boolean;
 };
 
 const Radio: FC<PropsT> = (props) => {
-    const { text, active } = props;
+    const { text, active, ...restProps } = props;
 
     return (
-        <Wrapper>
+        <Wrapper {...restProps}>
             <Control inverted={!active}>{text}</Control>
         </Wrapper>
     );

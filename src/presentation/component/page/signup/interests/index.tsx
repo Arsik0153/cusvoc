@@ -1,4 +1,6 @@
 import React, { FC, useState } from 'react';
+import { useRouter } from 'next/router';
+import { PHOTO } from 'constant/routes';
 import FilledContainer from 'presentation/component/common/Block/FilledContainer';
 import Checkbox from 'presentation/component/common/Control/Checkbox';
 import { Wrapper, Heading, Text, Controls, Button } from './styles';
@@ -68,6 +70,7 @@ const INTERESTS: InterestT[] = [
 ];
 
 const Interests: FC = () => {
+    const router = useRouter();
     const [activeInterests, setActiveInterests] = useState<number[]>([]);
 
     const handleCheckboxClick = (interestId: number): void => {
@@ -76,6 +79,17 @@ const Interests: FC = () => {
         } else {
             setActiveInterests([...activeInterests, interestId]);
         }
+    };
+
+    const handleSubmit = () => {
+        // const oldData = localStorage.getItem("registerData");
+        // if (oldData) {
+        //     const data = {
+        //         ...JSON.parse(oldData),
+        //     };
+        //     axios
+        // }
+        router.push(PHOTO);
     };
 
     return (
@@ -96,7 +110,7 @@ const Interests: FC = () => {
                         />
                     ))}
                 </Controls>
-                <Button>Continue</Button>
+                <Button onClick={handleSubmit}>Continue</Button>
             </Wrapper>
         </FilledContainer>
     );
