@@ -1,30 +1,46 @@
 import React, { FC } from 'react';
+import SvgSpriteIcon from '@bit/taptima.common.svg-sprite-icon';
 import NextLink from 'next/link';
 import { SIGN_UP } from 'constant/routes';
-import FilledContainer from 'presentation/component/common/Block/FilledContainer';
+import datingSvg from 'presentation/svg/dating.svg?sprite';
 import Button from 'presentation/component/common/Control/Button';
-import { Wrapper, Logo, LogoWrapper, Controls, IntroText, FooterLinks, FooterLink } from './styles';
+import {
+    Wrapper,
+    Banner,
+    Text,
+    Heading,
+    datingCss,
+    ImageWrapper,
+    Content,
+    MicroText,
+    Link,
+} from './styles';
 
 const HomePage: FC = () => {
     return (
-        <FilledContainer>
-            <Wrapper>
-                <LogoWrapper>
-                    <Logo>cusvoc</Logo>
-                </LogoWrapper>
-                <Controls>
-                    <IntroText>Sign up to continue</IntroText>
+        <Wrapper>
+            <Banner>
+                <Content>
+                    <Heading>Dating deserves better</Heading>
+                    <Text>
+                        On Cusvoc, you’re more than just a photo. You have stories to tell, and
+                        passions to share, and things to talk about that are more interesting than
+                        the weather. Get noticed for who you are, not what you look like. Because
+                        you deserve what dating deserves: better.
+                    </Text>
+                    <MicroText>
+                        By clicking Join, you agree to our <Link href="/">Terms</Link>. Learn how we
+                        process your data in our <Link href="/">Privacy Policy</Link>.
+                    </MicroText>
                     <NextLink href={SIGN_UP} passHref>
-                        <Button>Continue with email</Button>
+                        <Button>Join now</Button>
                     </NextLink>
-                    <Button inverted>Use phone number</Button>
-                </Controls>
-                <FooterLinks>
-                    <FooterLink href="">Terms of use</FooterLink>
-                    <FooterLink href="">Privacy Policy</FooterLink>
-                </FooterLinks>
-            </Wrapper>
-        </FilledContainer>
+                </Content>
+                <ImageWrapper>
+                    <SvgSpriteIcon icon={datingSvg} css={datingCss} />
+                </ImageWrapper>
+            </Banner>
+        </Wrapper>
     );
 };
 

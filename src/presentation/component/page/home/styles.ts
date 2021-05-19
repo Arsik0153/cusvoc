@@ -1,46 +1,55 @@
 import styled from '@emotion/styled';
-import { rem } from 'polished';
+import { css } from '@emotion/react';
+import { mq } from 'constant/mediaqueries';
 
 export const Wrapper = styled.div`
     font-weight: ${({ theme }) => theme.font.weight.semibold};
-    height: 100%;
+    padding: 30px 48px;
+`;
+
+export const Banner = styled.div`
+    width: 100%;
+    padding: 40px 0;
+    border-radius: 15px;
+    color: #000;
     display: grid;
-    grid-template-rows: 4fr 3fr 3fr;
-    padding: 40px 48px;
+    gap: 20px;
+
+    ${mq.greaterXs} {
+        grid-template-columns: 1fr 1fr;
+    }
 `;
 
-export const Logo = styled.h2`
-    font-weight: ${({ theme }) => theme.font.weight.bold};
-    text-align: center;
-    font-size: ${rem(36)};
+export const Content = styled.div``;
+
+export const ImageWrapper = styled.div``;
+
+export const Heading = styled.h1`
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+    height: fit-content;
+    border-bottom: 2px solid ${({ theme }) => theme.colors.red};
 `;
 
-export const LogoWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
+export const Text = styled.p`
+    font-weight: ${({ theme }) => theme.font.weight.regular};
+    font-size: 18px;
+    line-height: 24px;
 `;
 
-export const Controls = styled.div`
-    display: grid;
-    grid-auto-flow: row;
-    justify-items: center;
-    gap: ${rem(20)};
+export const datingCss = css`
+    grid-row: 1 / 3;
+    width: 100%;
 `;
 
-export const IntroText = styled.h3`
-    font-size: ${rem(18)};
-    font-weight: ${({ theme }) => theme.font.weight.bold};
-    margin-bottom: 12px;
+export const MicroText = styled.p`
+    font-size: 14px;
+    font-weight: ${({ theme }) => theme.font.weight.regular};
+    margin: 20px 0;
 `;
 
-export const FooterLinks = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-self: end;
-`;
-
-export const FooterLink = styled.a`
-    color: ${({ theme }) => theme.colors.red};
-    font-weight: 400;
+export const Link = styled.a`
+    text-decoration: underline;
+    color: #000;
+    line-height: 20px;
 `;
