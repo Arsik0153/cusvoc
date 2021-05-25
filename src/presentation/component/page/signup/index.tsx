@@ -112,31 +112,40 @@ const SignUp: FC = () => {
     };
 
     const handleSubmit = () => {
-        if (files) {
-            const formData = new FormData();
-            formData.append('confirmation_code', password);
-            formData.append('confirmation_time', birthDate);
-            formData.append('details', '');
-            formData.append('email', email);
-            formData.append('first_name', firstName);
-            formData.append('gender_id', activeGender);
-            formData.append('last_name', lastName);
-            formData.append('nickname', username);
-            formData.append('photo', files[0]);
-            formData.append('popularity', '0');
+        if (!files) {
+            // eslint-disable-next-line no-alert
+            alert('Upload your profile picture');
 
-            axios
-                .post(USERS_API, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                })
-                .then((res) => {
-                    // eslint-disable-next-line no-console
-                    console.log(res.data);
-                    router.push(DISCOVER);
-                });
+            return;
         }
+        const interestsAsText = activeInterests
+            .map((id) => INTERESTS.find((x) => x.id === id)?.text)
+            .join(', ');
+
+        const formData = new FormData();
+        formData.append('confirmation_code', password);
+        formData.append('confirmation_time', birthDate);
+        formData.append('details', interestsAsText);
+        formData.append('email', email);
+        formData.append('first_name', firstName);
+        formData.append('gender_id', activeGender);
+        formData.append('last_name', lastName);
+        formData.append('nickname', username);
+        formData.append('photo', files[0]);
+        formData.append('popularity', '0');
+
+        axios
+            .post(USERS_API, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then((res) => {
+                // eslint-disable-next-line no-console
+                console.log(res.data);
+                localStorage.setItem('userId', res.data.user_id);
+                router.push(DISCOVER);
+            });
     };
 
     return (

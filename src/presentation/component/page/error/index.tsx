@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import Layout from 'presentation/component/layout/Main';
 import HttpStatusCode from 'enum/HttpStatusCode';
+import Wrapper from './styles';
 
 type PropsT = {
     statusCode: HttpStatusCode;
@@ -14,9 +14,9 @@ const ErrorPage: FC<PropsT> = (props: PropsT) => {
             : 'Что-то пошло не так';
 
     return (
-        <Layout>
+        <Wrapper>
             <h1>{message}</h1>
-        </Layout>
+        </Wrapper>
     );
 };
 

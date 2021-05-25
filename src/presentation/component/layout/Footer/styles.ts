@@ -8,6 +8,8 @@ export const Wrapper = styled.footer`
     align-items: center;
     justify-content: space-between;
     padding: 40px 48px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 
     ${mq.lowerXs} {
         display: grid;

@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import SvgSpriteIcon from '@bit/taptima.common.svg-sprite-icon';
 import NextLink from 'next/link';
-import { SIGN_UP } from 'constant/routes';
+import { DISCOVER, SIGN_UP } from 'constant/routes';
 import datingSvg from 'presentation/svg/dating.svg?sprite';
 import Button from 'presentation/component/common/Control/Button';
+import { useAuth } from 'presentation/hook/auth';
 import {
     Wrapper,
     Banner,
@@ -17,6 +18,8 @@ import {
 } from './styles';
 
 const HomePage: FC = () => {
+    const { isLogged } = useAuth();
+
     return (
         <Wrapper>
             <Banner>
@@ -32,9 +35,17 @@ const HomePage: FC = () => {
                         By clicking Join, you agree to our <Link href="/">Terms</Link>. Learn how we
                         process your data in our <Link href="/">Privacy Policy</Link>.
                     </MicroText>
-                    <NextLink href={SIGN_UP} passHref>
-                        <Button>Join now</Button>
-                    </NextLink>
+                    {!isLogged && (
+                        <NextLink href={SIGN_UP} passHref>
+                            <Button>Join now</Button>
+                        </NextLink>
+                    )}
+
+                    {isLogged && (
+                        <NextLink href={DISCOVER} passHref>
+                            <Button>Discover new people</Button>
+                        </NextLink>
+                    )}
                 </Content>
                 <ImageWrapper>
                     <SvgSpriteIcon icon={datingSvg} css={datingCss} />

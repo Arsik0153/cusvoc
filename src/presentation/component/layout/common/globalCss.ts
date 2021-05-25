@@ -11,7 +11,7 @@ const globalCss = (theme: ThemeT): SerializedStyles => css`
     body {
         margin: 0;
         padding: 0;
-        background-color: ${theme.colors.bg};
+        /* background-color: ${theme.colors.bg}; */
         color: ${theme.colors.text};
         font-size: 16px;
         line-height: 1.2;

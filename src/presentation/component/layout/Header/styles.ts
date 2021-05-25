@@ -39,6 +39,7 @@ export const Right = styled.ul`
 export const PageLink = styled.a<PageLinkT>`
     color: #000;
     font-size: 18px;
+    cursor: pointer;
 
     ${({ active, theme }) =>
         active &&

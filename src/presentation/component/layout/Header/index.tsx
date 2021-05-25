@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { LinkT } from 'presentation/type/Link';
+import { useAuth } from 'presentation/hook/auth';
 import { Wrapper, Logo, Left, Right, PageLink } from './styles';
 
 export const LINKS: LinkT[] = [
@@ -25,6 +26,13 @@ export const LINKS: LinkT[] = [
 const Header: FC = () => {
     const router = useRouter();
     const activeLink = router.pathname;
+    const { isLogged } = useAuth();
+
+    const handleSignOutClick = (e: React.MouseEvent<HTMLElement>): void => {
+        e.preventDefault();
+        localStorage.removeItem('userId');
+        router.push('/');
+    };
 
     return (
         <Wrapper>
@@ -34,11 +42,17 @@ const Header: FC = () => {
                 </NextLink>
             </Left>
             <Right>
-                {LINKS.map((link) => (
-                    <NextLink href={link.href} passHref key={link.id}>
-                        <PageLink active={activeLink === link.href}>{link.text}</PageLink>
-                    </NextLink>
-                ))}
+                {!isLogged &&
+                    LINKS.map((link) => (
+                        <NextLink href={link.href} passHref key={link.id}>
+                            <PageLink active={activeLink === link.href}>{link.text}</PageLink>
+                        </NextLink>
+                    ))}
+                {isLogged && (
+                    <PageLink active={false} onClick={handleSignOutClick} href="/">
+                        Sign out
+                    </PageLink>
+                )}
             </Right>
         </Wrapper>
     );
