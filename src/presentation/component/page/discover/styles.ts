@@ -5,6 +5,7 @@ export const Wrapper = styled.div();
 
 export const Inner = styled.div`
     display: grid;
+    gap: 30px;
     padding: 44px 15px;
 
     ${mq.greaterXs} {

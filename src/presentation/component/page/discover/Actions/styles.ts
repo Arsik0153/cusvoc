@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 export const Wrapper = styled.div`
     margin-top: 21px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 `;
 

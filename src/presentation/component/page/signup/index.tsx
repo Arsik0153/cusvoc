@@ -22,7 +22,7 @@ import {
     ImageBlock,
 } from './styles';
 
-type InterestT = {
+export type InterestT = {
     id: number;
     text: string;
 };
