@@ -1,5 +1,16 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { mq } from 'constant/mediaqueries';
+
+type InteractionPropsT = {
+    opacify: boolean;
+};
+
+const opacifyCss = css`
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: wait;
+`;
 
 export const Wrapper = styled.div();
 
@@ -19,4 +30,8 @@ export const Title = styled.h2`
     font-size: 24px;
 `;
 
-export const Interaction = styled.div``;
+export const Interaction = styled.div<InteractionPropsT>`
+    transition: 0.3s;
+
+    ${({ opacify }) => opacify && opacifyCss}
+`;

@@ -65,8 +65,7 @@ const Slide: FC<PropsT> = (props) => {
                     </Name>
                     <SubHeader>About</SubHeader>
                     <Text>
-                        My name is John Doe and I enjoy meeting new people and finding ways to help
-                        them have an uplifting experience. I enjoy reading..
+                        My name is {name}, I am {age} years old and I am {description}
                     </Text>
                     <SubHeader>Interests</SubHeader>
                     <InterestsWrapper>
