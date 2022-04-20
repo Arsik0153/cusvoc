@@ -1,4 +1,4 @@
-# cusvoc
+# CygniFlight
 online dating web app
 
 **Deploying**

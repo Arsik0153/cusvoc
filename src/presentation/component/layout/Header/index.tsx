@@ -38,7 +38,7 @@ const Header: FC = () => {
         <Wrapper>
             <Left>
                 <NextLink href="/" passHref>
-                    <Logo>cusvoc</Logo>
+                    <Logo>CygniFlight</Logo>
                 </NextLink>
             </Left>
             <Right>

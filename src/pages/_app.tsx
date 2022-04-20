@@ -79,7 +79,7 @@ class App extends NextApp {
                         content="width=device-width, initial-scale=1, maximum-scale=5"
                     />
                     <meta name="description" key="description" content="Description" />
-                    <title>Cusvoc</title>
+                    <title>CygniFlight</title>
                 </Head>
                 <ThemeProvider>
                     <Layout>
