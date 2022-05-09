@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://d70242yz.beget.tech';
+export const BASE_URL = 'https://cm63274.tmweb.ru';
 export const USERS_API = `${BASE_URL}/users`;
 export const AUTH = `${BASE_URL}/auth`;
 export const USER = (id: number) => `${BASE_URL}/users/${id}`;

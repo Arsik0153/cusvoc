@@ -80,7 +80,6 @@ class App extends NextApp {
                     />
                     <meta name="description" key="description" content="Description" />
                     <title>CygniFlight</title>
-                    <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
                 </Head>
                 <ThemeProvider>
                     <Layout>
