@@ -21,7 +21,7 @@ const FAKE_IMAGES = [
 
 const Matches: FC = () => {
     const [users, setUsers] = useState<UserT[] | undefined>();
-    const [currentUser, setCurrentUser] = useState();
+    const [currentUser, setCurrentUser] = useState<UserT | undefined>();
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
