@@ -36,7 +36,16 @@ const INTERESTS: InterestT[] = [
     },
 ];
 
+const FAKE_IMAGES = [
+    'https://images.unsplash.com/photo-1535579710123-3c0f261c474e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+    'https://images.unsplash.com/photo-1629747490241-624f07d70e1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80',
+    'https://images.unsplash.com/photo-1485463598028-44d6c47bf23f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=749&q=80',
+    'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+    'https://images.unsplash.com/photo-1576695444267-40cdd214f06e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=722&q=80'
+];
+
 type UserT = {
+    id: number;
     src: string;
     name: string;
     age: number;
@@ -46,8 +55,9 @@ type UserT = {
 const Discover: FC = () => {
     const router = useRouter();
     const [showFull, setShowFull] = useState(false);
-    const [currentId, setCurrentId] = useState(33);
+    const [currentId, setCurrentId] = useState(1);
     const [currentUser, setCurrentUser] = useState<UserT>({
+        id: 0,
         src: '',
         name: '',
         age: 0,
@@ -68,6 +78,7 @@ const Discover: FC = () => {
         setCurrentId(currentId + 1);
         axios.get(USER(currentId)).then(({ data }) => {
             setCurrentUser({
+                id: data.id,
                 src: data.link,
                 name: `${data.first_name} ${data.last_name}`,
                 age: data.id,
@@ -111,7 +122,7 @@ const Discover: FC = () => {
                             name={currentUser.name}
                             age={currentUser.age}
                             description={currentUser.description}
-                            src={currentUser.src}
+                            src={FAKE_IMAGES[currentUser.id]}
                             interests={INTERESTS}
                             onMoreClick={toggleShowFull}
                             onCloseClick={() => {
