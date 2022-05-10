@@ -25,6 +25,8 @@ type PropsT = ActionsT & {
     interests: InterestT[];
 };
 
+const truncate = (input) => input.length > 20 ? `${input.substring(0, 20)}...` : input;
+
 const Slide: FC<PropsT> = (props) => {
     const {
         src,
@@ -47,7 +49,7 @@ const Slide: FC<PropsT> = (props) => {
                         <Name>
                             {name}, {age}
                         </Name>
-                        <Description>{description}</Description>
+                        <Description>{truncate(description)}</Description>
                     </Content>
                 )}
             </Wrapper>
@@ -65,7 +67,7 @@ const Slide: FC<PropsT> = (props) => {
                     </Name>
                     <SubHeader>About</SubHeader>
                     <Text>
-                        My name is {name}, I am {age} years old and I am {description}
+                        {description}
                     </Text>
                     <SubHeader>Interests</SubHeader>
                     <InterestsWrapper>

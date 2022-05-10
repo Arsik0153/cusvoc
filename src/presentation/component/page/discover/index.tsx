@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { LIKE, USER } from 'constant/apiRoutes';
+import {DISCOVER, LIKE} from 'constant/apiRoutes';
 import FilledContainer from 'presentation/component/common/Block/FilledContainer';
 import { InterestT } from 'presentation/component/page/signup';
-import Slide from './Slide';
 import Actions from './Actions';
 import Matches from './Matches';
 import { Wrapper, Title, Inner, Interaction } from './styles';
+import Slide from "./Slide";
 
 const INTERESTS: InterestT[] = [
     {
@@ -47,22 +47,19 @@ const FAKE_IMAGES = [
 type UserT = {
     id: number;
     src: string;
-    name: string;
+    first_name: string;
+    last_name: string;
     age: number;
-    description: string;
+    details: string;
 };
+
+const MY_ID = typeof window !== 'undefined' ? Number(localStorage.getItem('userId')) : null;
 
 const Discover: FC = () => {
     const router = useRouter();
     const [showFull, setShowFull] = useState(false);
     const [currentId, setCurrentId] = useState(1);
-    const [currentUser, setCurrentUser] = useState<UserT>({
-        id: 0,
-        src: '',
-        name: '',
-        age: 0,
-        description: '',
-    });
+    const [users, setUsers] = useState<UserT[]>([]);
     const [ready, setReady] = useState(true);
 
     useEffect(() => {
@@ -73,31 +70,19 @@ const Discover: FC = () => {
         setShowFull(!showFull);
     };
 
-    const getNextSlide = () => {
-        setReady(false);
-        setCurrentId(currentId + 1);
-        axios.get(USER(currentId)).then(({ data }) => {
-            setCurrentUser({
-                id: data.id,
-                src: data.link,
-                name: `${data.first_name} ${data.last_name}`,
-                age: data.id,
-                description: 'Professional photographer',
-            });
-            setReady(true);
-        });
-    };
-
     const like = () => {
+        if (!MY_ID) {
+            return;
+        }
+
         setReady(false);
-        const myId = Number(localStorage.getItem('userId'));
 
         const formData = new FormData();
         formData.append('user_account_id_received', String(currentId));
         formData.append('grade', '1');
 
         axios
-            .post(LIKE(myId), formData, {
+            .post(LIKE(MY_ID), formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -107,8 +92,21 @@ const Discover: FC = () => {
             });
     };
 
+    const getNextSlide = () => {
+        setReady(false);
+        setCurrentId((currentId) => currentId + 1);
+        setReady(true);
+    };
+
     useEffect(() => {
-        getNextSlide();
+        if (!MY_ID) {
+            return;
+        }
+
+        axios.get(DISCOVER(MY_ID)).then(({ data }) => {
+            setUsers(data);
+            setReady(true);
+        });
     }, []);
 
     return (
@@ -117,30 +115,24 @@ const Discover: FC = () => {
                 <Inner>
                     <Interaction opacify={!ready}>
                         <Title>Discover</Title>
-                        <Slide
-                            showFull={showFull}
-                            name={currentUser.name}
-                            age={currentUser.age}
-                            description={currentUser.description}
-                            src={FAKE_IMAGES[currentUser.id]}
-                            interests={INTERESTS}
-                            onMoreClick={toggleShowFull}
-                            onCloseClick={() => {
-                                getNextSlide();
-                            }}
-                            onLikeClick={() => {
-                                like();
-                            }}
-                        />
+                        {users.length > 0 && (
+                            <Slide
+                                showFull={showFull}
+                                name={`${users[currentId].first_name} ${users[currentId].last_name}`}
+                                age={Math.floor(Math.random() * (30 - 18 + 1) + 18)}
+                                description={users[currentId].details}
+                                src={currentId > FAKE_IMAGES.length - 1 ? FAKE_IMAGES[currentId % FAKE_IMAGES.length] : FAKE_IMAGES[currentId]}
+                                interests={INTERESTS}
+                                onMoreClick={toggleShowFull}
+                                onCloseClick={getNextSlide}
+                                onLikeClick={like}
+                            />
+                        )}
                         {!showFull && (
                             <Actions
                                 onMoreClick={toggleShowFull}
-                                onCloseClick={() => {
-                                    getNextSlide();
-                                }}
-                                onLikeClick={() => {
-                                    like();
-                                }}
+                                onCloseClick={getNextSlide}
+                                onLikeClick={like}
                             />
                         )}
                     </Interaction>
