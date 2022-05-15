@@ -8,6 +8,10 @@ const fontsCss = (theme: ThemeT): SerializedStyles => css`
         font-family: ${theme.font.family.base}, sans-serif;
         padding: 200px;
     }
+  
+    body {
+      overflow-y: scroll;
+    }
 
     ${fontFace({
         fontFamily: theme.font.family.base,

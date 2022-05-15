@@ -35,9 +35,8 @@ const Slide: FC<PropsT> = (props) => {
         description,
         showFull,
         interests,
-        onLikeClick,
+        rate,
         onMoreClick,
-        onCloseClick,
     } = props;
 
     return (
@@ -58,8 +57,7 @@ const Slide: FC<PropsT> = (props) => {
                     <ActionsWrapper>
                         <Actions
                             onMoreClick={onMoreClick}
-                            onCloseClick={onCloseClick}
-                            onLikeClick={onLikeClick}
+                            rate={rate}
                         />
                     </ActionsWrapper>
                     <Name>

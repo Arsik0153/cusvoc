@@ -6,20 +6,19 @@ import heartSvg from 'presentation/svg/heart.svg?sprite';
 import { Wrapper, Default, Main, closeIconCss, starIconCss, heartIconCss } from './styles';
 
 export type ActionsT = {
-    onCloseClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-    onLikeClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    rate: (action: number) => void;
     onMoreClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 const Actions: FC<ActionsT> = (props) => {
-    const { onCloseClick, onMoreClick, onLikeClick } = props;
+    const { onMoreClick, rate } = props;
 
     return (
         <Wrapper>
-            <Default onClick={onCloseClick}>
+            <Default onClick={() => rate(0)}>
                 <SvgSpriteIcon icon={closeSvg} css={closeIconCss} />
             </Default>
-            <Main onClick={onLikeClick}>
+            <Main onClick={() => rate(1)}>
                 <SvgSpriteIcon icon={heartSvg} css={heartIconCss} />
             </Main>
             <Default onClick={onMoreClick}>

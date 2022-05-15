@@ -4,10 +4,11 @@ import axios from 'axios';
 import {DISCOVER, LIKE} from 'constant/apiRoutes';
 import FilledContainer from 'presentation/component/common/Block/FilledContainer';
 import { InterestT } from 'presentation/component/page/signup';
+import getAge from "helper/string/getAge";
 import Actions from './Actions';
 import Matches from './Matches';
-import { Wrapper, Title, Inner, Interaction } from './styles';
 import Slide from "./Slide";
+import { Wrapper, Title, Inner, Interaction, SubTitle, Center } from './styles';
 
 const INTERESTS: InterestT[] = [
     {
@@ -36,14 +37,6 @@ const INTERESTS: InterestT[] = [
     },
 ];
 
-const FAKE_IMAGES = [
-    'https://images.unsplash.com/photo-1535579710123-3c0f261c474e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-    'https://images.unsplash.com/photo-1629747490241-624f07d70e1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80',
-    'https://images.unsplash.com/photo-1485463598028-44d6c47bf23f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=749&q=80',
-    'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-    'https://images.unsplash.com/photo-1576695444267-40cdd214f06e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=722&q=80'
-];
-
 type UserT = {
     id: number;
     src: string;
@@ -51,6 +44,9 @@ type UserT = {
     last_name: string;
     age: number;
     details: string;
+    link: string;
+    about_me: string;
+    date_of_birth: string;
 };
 
 const MY_ID = typeof window !== 'undefined' ? Number(localStorage.getItem('userId')) : null;
@@ -58,9 +54,9 @@ const MY_ID = typeof window !== 'undefined' ? Number(localStorage.getItem('userI
 const Discover: FC = () => {
     const router = useRouter();
     const [showFull, setShowFull] = useState(false);
-    const [currentId, setCurrentId] = useState(1);
+    const [currentId, setCurrentId] = useState(0);
     const [users, setUsers] = useState<UserT[]>([]);
-    const [ready, setReady] = useState(true);
+    const [ready, setReady] = useState(false);
 
     useEffect(() => {
         if (!localStorage.getItem('userId')) router.push('/');
@@ -70,7 +66,7 @@ const Discover: FC = () => {
         setShowFull(!showFull);
     };
 
-    const like = () => {
+    const rate = (action: number) => {
         if (!MY_ID) {
             return;
         }
@@ -78,8 +74,8 @@ const Discover: FC = () => {
         setReady(false);
 
         const formData = new FormData();
-        formData.append('user_account_id_received', String(currentId));
-        formData.append('grade', '1');
+        formData.append('user_account_id_received', `${users[currentId].id}`);
+        formData.append('grade', `${action}`);
 
         axios
             .post(LIKE(MY_ID), formData, {
@@ -94,7 +90,9 @@ const Discover: FC = () => {
 
     const getNextSlide = () => {
         setReady(false);
-        setCurrentId((currentId) => currentId + 1);
+        if (currentId !== users.length - 1){
+            setCurrentId((currentId) => currentId + 1);
+        }
         setReady(true);
     };
 
@@ -105,7 +103,9 @@ const Discover: FC = () => {
 
         axios.get(DISCOVER(MY_ID)).then(({ data }) => {
             setUsers(data);
-            setReady(true);
+            if (data && data.length > 0) {
+                setReady(true);
+            }
         });
     }, []);
 
@@ -115,24 +115,27 @@ const Discover: FC = () => {
                 <Inner>
                     <Interaction opacify={!ready}>
                         <Title>Discover</Title>
-                        {users.length > 0 && (
+                        {users?.length > 0 && (
                             <Slide
                                 showFull={showFull}
                                 name={`${users[currentId].first_name} ${users[currentId].last_name}`}
-                                age={Math.floor(Math.random() * (30 - 18 + 1) + 18)}
-                                description={users[currentId].details}
-                                src={currentId > FAKE_IMAGES.length - 1 ? FAKE_IMAGES[currentId % FAKE_IMAGES.length] : FAKE_IMAGES[currentId]}
+                                age={getAge(users[currentId].date_of_birth)}
+                                description={users[currentId].about_me}
+                                src={users[currentId].link}
                                 interests={INTERESTS}
                                 onMoreClick={toggleShowFull}
-                                onCloseClick={getNextSlide}
-                                onLikeClick={like}
+                                rate={rate}
                             />
+                        )}
+                        {!users && (
+                            <Center>
+                                <SubTitle>There's nothing for you yet.</SubTitle>
+                            </Center>
                         )}
                         {!showFull && (
                             <Actions
                                 onMoreClick={toggleShowFull}
-                                onCloseClick={getNextSlide}
-                                onLikeClick={like}
+                                rate={rate}
                             />
                         )}
                     </Interaction>
