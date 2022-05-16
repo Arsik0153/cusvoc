@@ -3,39 +3,11 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import {DISCOVER, LIKE} from 'constant/apiRoutes';
 import FilledContainer from 'presentation/component/common/Block/FilledContainer';
-import { InterestT } from 'presentation/component/page/signup';
 import getAge from "helper/string/getAge";
 import Actions from './Actions';
 import Matches from './Matches';
 import Slide from "./Slide";
 import { Wrapper, Title, Inner, Interaction, SubTitle, Center } from './styles';
-
-const INTERESTS: InterestT[] = [
-    {
-        id: 1,
-        text: 'Photography',
-    },
-    {
-        id: 2,
-        text: 'Shopping',
-    },
-    {
-        id: 3,
-        text: 'Karaoke',
-    },
-    {
-        id: 4,
-        text: 'Yoga',
-    },
-    {
-        id: 6,
-        text: 'Tennis',
-    },
-    {
-        id: 7,
-        text: 'Run',
-    },
-];
 
 type UserT = {
     id: number;
@@ -122,7 +94,7 @@ const Discover: FC = () => {
                                 age={getAge(users[currentId].date_of_birth)}
                                 description={users[currentId].about_me}
                                 src={users[currentId].link}
-                                interests={INTERESTS}
+                                interests={users[currentId].details}
                                 onMoreClick={toggleShowFull}
                                 rate={rate}
                             />

@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { InterestT } from 'presentation/component/page/signup';
 import Actions, { ActionsT } from 'presentation/component/page/discover/Actions';
 import {
     Wrapper,
@@ -22,7 +21,7 @@ type PropsT = ActionsT & {
     age: number;
     description: string;
     showFull: boolean;
-    interests: InterestT[];
+    interests: string;
 };
 
 const truncate = (input: string) => input.length > 20 ? `${input.substring(0, 20)}...` : input;
@@ -70,8 +69,8 @@ const Slide: FC<PropsT> = (props) => {
                     <SubHeader>Interests</SubHeader>
                     <InterestsWrapper>
                         {interests &&
-                            interests.map((interest) => (
-                                <Interest key={interest.id}>{interest.text}</Interest>
+                            interests.split(', ').map((interest, index) => (
+                                <Interest key={index}>{interest}</Interest>
                             ))}
                     </InterestsWrapper>
                 </InfoWrapper>
