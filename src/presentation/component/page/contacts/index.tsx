@@ -12,7 +12,6 @@ const ContactsPage: FC = () => {
                 </Text>
                 <Iframe
                     src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2505.963934683514!2d71.41937368224015!3d51.09067309528496!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424585a605525605%3A0x4dff4a1973f7567e!2sAstana%20IT%20University!5e0!3m2!1sru!2skz!4v1652651661939!5m2!1sru!2skz"
-                    allowFullScreen=""
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                 />

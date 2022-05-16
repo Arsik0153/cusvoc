@@ -25,7 +25,7 @@ type PropsT = ActionsT & {
     interests: InterestT[];
 };
 
-const truncate = (input) => input.length > 20 ? `${input.substring(0, 20)}...` : input;
+const truncate = (input: string) => input.length > 20 ? `${input.substring(0, 20)}...` : input;
 
 const Slide: FC<PropsT> = (props) => {
     const {
