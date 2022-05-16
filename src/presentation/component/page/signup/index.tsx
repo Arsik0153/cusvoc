@@ -5,6 +5,7 @@ import SvgSpriteIcon from '@bit/taptima.common.svg-sprite-icon';
 import FilledContainer from 'presentation/component/common/Block/FilledContainer';
 import Input from 'presentation/component/common/Control/Input';
 import Radio from 'presentation/component/common/Control/Radio';
+import TextArea from 'presentation/component/common/Control/TextArea';
 import Checkbox from 'presentation/component/common/Control/Checkbox';
 import { DISCOVER } from 'constant/routes';
 import { USERS_API } from 'constant/apiRoutes';
@@ -94,9 +95,11 @@ const SignUp: FC = () => {
     const [email, setEmail] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [activeGender, setActiveGender] = useState<string>('2');
+    const [activeGender, setActiveGender] = useState<string>('0');
     const [activeInterests, setActiveInterests] = useState<number[]>([]);
+    const [interestedIn, setInterestedIn] = useState<string>('0');
     const [files, setFiles] = useState<FileList | null>(null);
+    const [bio, setBio] = useState<string>('');
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
         const currentFiles = e.target.files;
@@ -124,11 +127,14 @@ const SignUp: FC = () => {
 
         const formData = new FormData();
         formData.append('confirmation_code', password);
-        formData.append('confirmation_time', birthDate);
+        formData.append('confirmation_time', '');
+        formData.append('date_of_birth', birthDate);
+        formData.append('about_me', bio);
         formData.append('details', interestsAsText);
         formData.append('email', email);
         formData.append('first_name', firstName);
         formData.append('gender_id', activeGender);
+        formData.append('orientation', interestedIn);
         formData.append('last_name', lastName);
         formData.append('nickname', username);
         formData.append('photo', files[0]);
@@ -141,8 +147,6 @@ const SignUp: FC = () => {
                 },
             })
             .then((res) => {
-                // eslint-disable-next-line no-console
-                console.log(res.data);
                 localStorage.setItem('userId', res.data.user_id);
                 router.push(DISCOVER);
             });
@@ -194,18 +198,36 @@ const SignUp: FC = () => {
                 <Controls>
                     <Radio
                         text="Woman"
+                        active={activeGender === '0'}
+                        onClick={() => setActiveGender('0')}
+                    />
+                    <Radio
+                        text="Man"
                         active={activeGender === '1'}
                         onClick={() => setActiveGender('1')}
                     />
                     <Radio
-                        text="Man"
+                        text="Prefer not to say"
                         active={activeGender === '2'}
                         onClick={() => setActiveGender('2')}
                     />
+                </Controls>
+                <Heading>I am interested in </Heading>
+                <Controls>
                     <Radio
-                        text="Choose another"
-                        active={activeGender === '3'}
-                        onClick={() => setActiveGender('3')}
+                        text="Woman"
+                        active={interestedIn === '0'}
+                        onClick={() => setInterestedIn('0')}
+                    />
+                    <Radio
+                        text="Man"
+                        active={interestedIn === '1'}
+                        onClick={() => setInterestedIn('1')}
+                    />
+                    <Radio
+                        text="I do not care"
+                        active={interestedIn === '2'}
+                        onClick={() => setInterestedIn('2')}
                     />
                 </Controls>
                 <Heading>Your interests</Heading>
@@ -223,6 +245,13 @@ const SignUp: FC = () => {
                         />
                     ))}
                 </InterestsControl>
+                <Heading>
+                    Describe yourself little bit more
+                </Heading>
+                <TextArea
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                />
                 <Heading>Profile image</Heading>
                 <ImageBlock htmlFor="pfp-upload">
                     Upload image

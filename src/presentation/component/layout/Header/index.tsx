@@ -21,6 +21,11 @@ export const LINKS: LinkT[] = [
         href: '/signin',
         text: 'Sign In',
     },
+    {
+        id: 4,
+        href: '/contacts',
+        text: 'Contacts',
+    }
 ];
 
 const Header: FC = () => {

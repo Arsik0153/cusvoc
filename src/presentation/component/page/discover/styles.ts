@@ -35,3 +35,15 @@ export const Interaction = styled.div<InteractionPropsT>`
 
     ${({ opacify }) => opacify && opacifyCss}
 `;
+
+export const Center = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 450px;
+`;
+
+export const SubTitle = styled.h3`
+    font-size: 18px;
+    text-align: center;
+`;
