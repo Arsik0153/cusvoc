@@ -54,9 +54,17 @@ const Header: FC = () => {
                         </NextLink>
                     ))}
                 {isLogged && (
-                    <PageLink active={false} onClick={handleSignOutClick} href="/">
-                        Sign out
-                    </PageLink>
+                    <>
+                        <NextLink href="/profile" passHref>
+                            <PageLink active={activeLink === "/profile"}>My Profile</PageLink>
+                        </NextLink>
+                        <NextLink href="/contacts" passHref>
+                            <PageLink active={activeLink === "/contacts"}>Contacts</PageLink>
+                        </NextLink>
+                        <PageLink active={false} onClick={handleSignOutClick} href="/">
+                            Sign out
+                        </PageLink>
+                    </>
                 )}
             </Right>
         </Wrapper>

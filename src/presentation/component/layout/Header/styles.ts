@@ -27,6 +27,10 @@ export const Logo = styled.a`
     font-size: 22px;
     font-weight: ${({ theme }) => theme.font.weight.semibold};
     color: #000;
+  
+    ${mq.lowerXs} {
+      font-size: 18px;
+    }
 `;
 
 export const Right = styled.ul`
@@ -34,6 +38,10 @@ export const Right = styled.ul`
     align-items: center;
     grid-auto-flow: column;
     gap: 15px;
+    
+    ${mq.lowerXs} {
+      gap: 10px;
+    }
 `;
 
 export const PageLink = styled.a<PageLinkT>`
