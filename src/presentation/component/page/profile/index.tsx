@@ -53,7 +53,7 @@ const ProfilePage: FC = () => {
                         <Name>{user.first_name} {user.last_name}, {getAge(user.date_of_birth)}</Name>
                         <Heading>Basic information</Heading>
                         <Text>Born: {new Date(user.date_of_birth).toLocaleDateString()}</Text>
-                        <Text>Interested in: {getGender(user.gender)}</Text>
+                        <Text>Interested in: {getGender(+user.gender_id)}</Text>
                         <Heading>About me</Heading>
                         <Text>{user.about_me}</Text>
                         <Heading>Interests</Heading>

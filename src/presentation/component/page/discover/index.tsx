@@ -62,10 +62,10 @@ const Discover: FC = () => {
 
     const getNextSlide = () => {
         setReady(false);
+        setCurrentId((currentId) => currentId + 1);
         if (currentId !== users.length - 1){
-            setCurrentId((currentId) => currentId + 1);
+            setReady(true);
         }
-        setReady(true);
     };
 
     useEffect(() => {
@@ -87,7 +87,7 @@ const Discover: FC = () => {
                 <Inner>
                     <Interaction opacify={!ready}>
                         <Title>Discover</Title>
-                        {users?.length > 0 && (
+                        {users?.length > 0 && users[currentId] && (
                             <Slide
                                 showFull={showFull}
                                 name={`${users[currentId].first_name} ${users[currentId].last_name}`}
@@ -99,7 +99,7 @@ const Discover: FC = () => {
                                 rate={rate}
                             />
                         )}
-                        {!users && (
+                        {!users[currentId] && (
                             <Center>
                                 <SubTitle>There's nothing for you yet.</SubTitle>
                             </Center>

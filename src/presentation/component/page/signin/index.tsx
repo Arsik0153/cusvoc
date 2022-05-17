@@ -11,8 +11,15 @@ const SignIn: FC = () => {
     const router = useRouter();
     const [email, setEmail] = useState<string>('');
     const [pass, setPass] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleSubmit = () => {
+        if (loading) {
+            return;
+        }
+
+        setLoading(true);
+
         const formData = new FormData();
         formData.append('login', email);
         formData.append('password', pass);
@@ -24,6 +31,7 @@ const SignIn: FC = () => {
                 },
             })
             .then((res) => {
+                setLoading(false);
                 if (res.data.authenticated) {
                     localStorage.setItem('userId', res.data.id);
                     router.push(DISCOVER);
@@ -51,7 +59,7 @@ const SignIn: FC = () => {
                         value={pass}
                         onChange={(e) => setPass(e.target.value)}
                     />
-                    <Button onClick={handleSubmit}>Sign in</Button>
+                    <Button onClick={handleSubmit} $disabled={loading}>Sign in</Button>
                 </Controls>
             </Wrapper>
         </FilledContainer>

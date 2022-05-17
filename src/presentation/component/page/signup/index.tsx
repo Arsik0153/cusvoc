@@ -100,6 +100,7 @@ const SignUp: FC = () => {
     const [interestedIn, setInterestedIn] = useState<string>('0');
     const [files, setFiles] = useState<FileList | null>(null);
     const [bio, setBio] = useState<string>('');
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
         const currentFiles = e.target.files;
@@ -115,12 +116,19 @@ const SignUp: FC = () => {
     };
 
     const handleSubmit = () => {
+        if (loading) {
+            return;
+        }
+
         if (!files) {
             // eslint-disable-next-line no-alert
             alert('Upload your profile picture');
 
             return;
         }
+
+        setLoading(true);
+
         const interestsAsText = activeInterests
             .map((id) => INTERESTS.find((x) => x.id === id)?.text)
             .join(', ');
@@ -261,7 +269,7 @@ const SignUp: FC = () => {
                 </ImageBlock>
                 <FileName>{files && files[0] && files[0].name}</FileName>
                 <FileInput id="pfp-upload" type="file" onChange={handleChange} accept="image/*" />
-                <Button onClick={handleSubmit}>Sign Up</Button>
+                <Button onClick={handleSubmit} $disabled={loading}>Sign Up</Button>
             </Wrapper>
         </FilledContainer>
     );

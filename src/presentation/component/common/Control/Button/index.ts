@@ -4,6 +4,7 @@ import { ThemeT } from 'presentation/context/Theme';
 
 type ButtonPropsT = {
     inverted?: boolean;
+    $disabled?: boolean;
 };
 
 const defaultButtonCss = (theme: ThemeT): SerializedStyles => css`
@@ -18,6 +19,11 @@ const invertedButtonCss = (theme: ThemeT): SerializedStyles => css`
     border: 2px solid #f3f3f3;
 `;
 
+const disabledButtonCss = (theme: ThemeT): SerializedStyles => css`
+    opacity: 0.4;
+    cursor: wait;
+`;
+
 const Button = styled.button<ButtonPropsT>`
     cursor: pointer;
     padding: 16px 32px;
@@ -28,6 +34,7 @@ const Button = styled.button<ButtonPropsT>`
 
     ${({ theme, inverted }) => !inverted && defaultButtonCss(theme)}
     ${({ theme, inverted }) => inverted && invertedButtonCss(theme)}
+    ${({ theme, $disabled }) => $disabled && disabledButtonCss(theme)}
 `;
 
 export default Button;

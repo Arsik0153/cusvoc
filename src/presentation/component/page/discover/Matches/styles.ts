@@ -16,13 +16,12 @@ export const Inner = styled.div`
 export const Match = styled.div`
     width: 100%;
     display: grid;
-    grid-template-columns: 60px 1fr;
+    grid-template-columns: 60px 1fr 1fr;
     align-items: center;
     gap: 20px;
-    cursor: pointer;
 
-    &:hover h3 {
-        transform: translateX(15px);
+    &:hover span {
+        opacity: 1;
     }
 `;
 
@@ -37,3 +36,12 @@ export const Name = styled.h3`
     font-weight: ${({ theme }) => theme.font.weight.regular};
     transition: 0.3s;
 `;
+
+export const Email = styled.span`
+    transition: 0.3s;
+    opacity: 0;
+    font-weight: 500;
+    color: gray;
+`;
+
+export const Link = styled.a();
